@@ -374,7 +374,7 @@ class EmargementController extends Controller
     // -----------------------------------------------------------
     // 🔹 GENERATION QR CODE
     // -----------------------------------------------------------
-    /*public function generateQr()
+    public function generateQr()
     {
         $users = User::select('matricule', 'nom')->get();
 
@@ -384,15 +384,16 @@ class EmargementController extends Controller
             'matricules' => $users->pluck('matricule')->toArray(),
             'expires_at' => now()->addSeconds(10)->toISOString()
         ];
+        dd($srData);
 
         return response()->json([
             "code" => 200,
             "data" => $qrData,
             "message" => "QR code généré"
         ]);
-    }*/
+    }
 
-    public function generateQr()
+    /*public function generateQr()
     {
         $sessionId = uniqid('session_', true);
         
@@ -405,7 +406,7 @@ class EmargementController extends Controller
             ],
             "message" => "QR code généré"
         ]);
-    }
+    }*/
 
 
     // -----------------------------------------------------------
