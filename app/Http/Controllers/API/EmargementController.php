@@ -401,7 +401,7 @@ class EmargementController extends Controller
             "data" => [
                 "session_id" => $sessionId,
                 "timestamp" => now()->toISOString(),
-                "expires_at" => now()->addSeconds(300)->toISOString()
+                "expires_at" => now()->addSeconds(10)->toISOString()
             ],
             "message" => "QR code généré"
         ]);
