@@ -2,8 +2,6 @@
 
 namespace Illuminate\Foundation\Auth;
 
-use App\Models\Admin;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -177,8 +175,9 @@ trait AuthenticatesUsers
             return $response;
         }
 
-        if(str_contains(request()->url(), 'admin')) return $request->wantsJson() ? new JsonResponse([], 204) : redirect('/admin');
-        else return $request->wantsJson() ? new JsonResponse([], 204) : redirect('/');
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/');
     }
 
     /**
@@ -199,7 +198,6 @@ trait AuthenticatesUsers
      */
     protected function guard()
     {
-        if(str_contains(request()->url(), 'admin')) return Auth::guard(Admin::$guard);
-        else return Auth::guard();
+        return Auth::guard();
     }
 }

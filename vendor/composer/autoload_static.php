@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
+class ComposerStaticInit1060533f8c79d017e99dd378692a3c88
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -394,13 +394,13 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
-            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
+            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
+            1 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
         ),
         'Spatie\\Ignition\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/ignition/src',
-            1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
+            0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
+            1 => __DIR__ . '/..' . '/spatie/ignition/src',
         ),
         'Spatie\\FlareClient\\' => 
         array (
@@ -448,8 +448,8 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -765,6 +765,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Http\\Controllers\\InfosController' => __DIR__ . '/../..' . '/app/Http/Controllers/InfosController.php',
         'App\\Http\\Controllers\\InternController' => __DIR__ . '/../..' . '/app/Http/Controllers/InternController.php',
         'App\\Http\\Controllers\\LeaveController' => __DIR__ . '/../..' . '/app/Http/Controllers/LeaveController.php',
+        'App\\Http\\Controllers\\MessageController' => __DIR__ . '/../..' . '/app/Http/Controllers/MessageController.php',
         'App\\Http\\Controllers\\OfficialController' => __DIR__ . '/../..' . '/app/Http/Controllers/OfficialController.php',
         'App\\Http\\Controllers\\RegistrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegistrationController.php',
         'App\\Http\\Controllers\\RetirementController' => __DIR__ . '/../..' . '/app/Http/Controllers/RetirementController.php',
@@ -775,6 +776,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Http\\Controllers\\SiteController' => __DIR__ . '/../..' . '/app/Http/Controllers/SiteController.php',
         'App\\Http\\Controllers\\TemporaryWorkerController' => __DIR__ . '/../..' . '/app/Http/Controllers/TemporaryWorkerController.php',
         'App\\Http\\Controllers\\UnlockController' => __DIR__ . '/../..' . '/app/Http/Controllers/UnlockController.php',
+        'App\\Http\\Controllers\\V2\\AssessmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/V2/AssessmentController.php',
         'App\\Http\\Controllers\\WorkerController' => __DIR__ . '/../..' . '/app/Http/Controllers/WorkerController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -796,6 +798,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Http\\Requests\\CreateDepartementRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreateDepartementRequest.php',
         'App\\Http\\Requests\\CreateEmployeeRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreateEmployeeRequest.php',
         'App\\Http\\Requests\\CreateFactorRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreateFactorRequest.php',
+        'App\\Http\\Requests\\CreateFileRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreateFileRequest.php',
         'App\\Http\\Requests\\CreateFormFieldRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreateFormFieldRequest.php',
         'App\\Http\\Requests\\CreateGradeRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreateGradeRequest.php',
         'App\\Http\\Requests\\CreateHolidayRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreateHolidayRequest.php',
@@ -851,6 +854,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Livewire\\Automate' => __DIR__ . '/../..' . '/app/Livewire/Automate.php',
         'App\\Livewire\\Banners' => __DIR__ . '/../..' . '/app/Livewire/Banners.php',
         'App\\Livewire\\Leave' => __DIR__ . '/../..' . '/app/Livewire/Leave.php',
+        'App\\Livewire\\LeaveUpdate' => __DIR__ . '/../..' . '/app/Livewire/LeaveUpdate.php',
         'App\\Livewire\\User\\Certificat' => __DIR__ . '/../..' . '/app/Livewire/User/Certificat.php',
         'App\\Livewire\\User\\UpdateCertificat' => __DIR__ . '/../..' . '/app/Livewire/User/UpdateCertificat.php',
         'App\\Mail\\AssessmentMail' => __DIR__ . '/../..' . '/app/Mail/AssessmentMail.php',
@@ -863,6 +867,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Models\\Certificate' => __DIR__ . '/../..' . '/app/Models/Certificate.php',
         'App\\Models\\Departement' => __DIR__ . '/../..' . '/app/Models/Departement.php',
         'App\\Models\\Emargement' => __DIR__ . '/../..' . '/app/Models/Emargement.php',
+        'App\\Models\\File' => __DIR__ . '/../..' . '/app/Models/File.php',
         'App\\Models\\Flow' => __DIR__ . '/../..' . '/app/Models/Flow.php',
         'App\\Models\\FormAssessment' => __DIR__ . '/../..' . '/app/Models/FormAssessment.php',
         'App\\Models\\FormField' => __DIR__ . '/../..' . '/app/Models/FormField.php',
@@ -872,6 +877,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Models\\Leave' => __DIR__ . '/../..' . '/app/Models/Leave.php',
         'App\\Models\\LeaveYear' => __DIR__ . '/../..' . '/app/Models/LeaveYear.php',
         'App\\Models\\Media' => __DIR__ . '/../..' . '/app/Models/Media.php',
+        'App\\Models\\MessageHistory' => __DIR__ . '/../..' . '/app/Models/MessageHistory.php',
         'App\\Models\\Parametre' => __DIR__ . '/../..' . '/app/Models/Parametre.php',
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
         'App\\Models\\Retard' => __DIR__ . '/../..' . '/app/Models/Retard.php',
@@ -922,6 +928,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Repositories\\UserRepository' => __DIR__ . '/../..' . '/app/Repositories/UserRepository.php',
         'App\\Repositories\\WorkerRepository' => __DIR__ . '/../..' . '/app/Repositories/WorkerRepository.php',
         'App\\Services\\DateService' => __DIR__ . '/../..' . '/app/Services/DateService.php',
+        'App\\Services\\WassengerService' => __DIR__ . '/../..' . '/app/Services/WassengerService.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Barryvdh\\DomPDF\\Facade\\Pdf' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade/Pdf.php',
         'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
@@ -8864,10 +8871,10 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9c491b8531eec05ba41a11d9276a5749::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9c491b8531eec05ba41a11d9276a5749::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit9c491b8531eec05ba41a11d9276a5749::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit9c491b8531eec05ba41a11d9276a5749::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1060533f8c79d017e99dd378692a3c88::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1060533f8c79d017e99dd378692a3c88::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit1060533f8c79d017e99dd378692a3c88::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit1060533f8c79d017e99dd378692a3c88::$classMap;
 
         }, null, ClassLoader::class);
     }

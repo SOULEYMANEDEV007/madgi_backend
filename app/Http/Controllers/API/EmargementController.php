@@ -233,44 +233,11 @@ class EmargementController extends Controller
     // -----------------------------------------------------------
     public function scanEmargement(Request $request)
     {
-        // DEBUG FORCÉ
-        Log::info('📱 SCAN QR - DEBUG COMPLET ===========');
-        Log::info('📱 Méthode: ' . $request->method());
-        Log::info('📱 Content-Type: ' . $request->header('Content-Type'));
-        Log::info('📱 Toutes les données (all):', $request->all());
-        Log::info('📱 Contenu brut (getContent): ' . $request->getContent());
-        Log::info('📱 ===================================');
+        $user = auth()->user();
 
-        // Si JSON, décoder manuellement
-        $jsonData = [];
-        if ($request->header('Content-Type') === 'application/json') {
-            $jsonData = json_decode($request->getContent(), true) ?? [];
-            Log::info('📱 Données JSON décodées:', $jsonData);
+        if (!$user) {
+            return response()->json(['code' => 401, 'message' => 'Utilisateur non authentifié']);
         }
-
-        $user = auth()->user(); // Récupère l'utilisateur connecté
-
-// Vérifier si l'utilisateur est connecté
-if (!$user) {
-    return response()->json(['code' => 401, 'message' => 'Utilisateur non authentifié']);
-}
-
-// Utiliser directement le matricule de l'utilisateur connecté
-$matricule = $user->matricule;
-
-// Récupérer l'utilisateur par son matricule (optionnel, car vous l'avez déjà)
-$userByMatricule = User::where('matricule', $matricule)->first();
-
-if (!$userByMatricule) {
-    return response()->json(['code' => 404, 'message' => 'Utilisateur non trouvé']);
-}
-
-// Si vous voulez juste l'utilisateur connecté, vous pouvez simplifier :
-$user = auth()->user();
-
-if (!$user) {
-    return response()->json(['code' => 401, 'message' => 'Utilisateur non authentifié']);
-}
 
         $params = $this->getHoraireParams();
         $now = Carbon::now();
@@ -278,122 +245,63 @@ if (!$user) {
 
         $emargement = Emargement::where('matricule', $user->matricule)->where('date', $dateToday)->first();
 
-        // 🚨 CORRECTION: Récupérer le justificatif de TOUTES les façons
-        $justificatifArrive = null;
-        $justificatifDepart = null;
-        $justificatifSimple = null;
-        
-        // Essayer depuis request
-        if ($request->has('justificatif_arrive')) {
-            $justificatifArrive = $request->input('justificatif_arrive');
-        }
-        if ($request->has('justificatif_depart')) {
-            $justificatifDepart = $request->input('justificatif_depart');
-        }
-        if ($request->has('justificatif')) {
-            $justificatifSimple = $request->input('justificatif');
-        }
-        
-        // Si JSON, essayer depuis jsonData
-        if (empty($justificatifArrive) && !empty($jsonData['justificatif_arrive'])) {
-            $justificatifArrive = $jsonData['justificatif_arrive'];
-        }
-        if (empty($justificatifDepart) && !empty($jsonData['justificatif_depart'])) {
-            $justificatifDepart = $jsonData['justificatif_depart'];
-        }
-        if (empty($justificatifSimple) && !empty($jsonData['justificatif'])) {
-            $justificatifSimple = $jsonData['justificatif'];
-        }
-        
-        Log::info('🔍 Justificatifs FINAUX:', [
-            'justificatif_arrive' => $justificatifArrive,
-            'justificatif_depart' => $justificatifDepart,
-            'justificatif_simple' => $justificatifSimple
-        ]);
+        $justificatifArrive = $request->input('justificatif_arrive');
+        $justificatifDepart = $request->input('justificatif_depart');
+        $justificatifSimple = $request->input('justificatif');
 
         // ------------ ARRIVÉE ------------
         if (!$emargement) 
         {
             $estEnRetard = $now->greaterThan($params['heureAvecTolerance']);
             
-            // Déterminer le justificatif pour l'arrivée
             $justificatif = $justificatifArrive ?? $justificatifSimple;
             $avecJustificatif = !empty($justificatif);
 
-            Log::info('🚶‍♂️ Scan QR - Arrivée FINALE:', [
-                'estEnRetard' => $estEnRetard,
-                'justificatif' => $justificatif,
-                'avecJustificatif' => $avecJustificatif,
-                'heure_actuelle' => $now->format('H:i:s'),
-                'heure_limite' => $params['heureAvecTolerance']->format('H:i:s')
-            ]);
-
-            // CAS 1: Arrivée avec justificatif (qu'il y ait retard ou non)
+            // Arrivée avec justificatif
             if ($avecJustificatif) {
-                Log::info('✅ ARRIVÉE AVEC JUSTIFICATIF - ENREGISTREMENT');
-                
-                $data = [
-                    'matricule' => $user->matricule,
-                    'nom' => $user->nom,
-                    'prenom' => $user->prenom,
-                    'date' => $dateToday,
-                    'heure_arrive' => $now->format('H:i:s'),
+                $record = Emargement::create([
+                    'matricule'           => $user->matricule,
+                    'nom'                 => $user->nom,
+                    'prenom'              => $user->prenom,
+                    'date'                => $dateToday,
+                    'heure_arrive'        => $now->format('H:i:s'),
                     'justificatif_arrive' => $justificatif,
-                    'avec_justificatif' => true,
-                    'est_en_retard' => $estEnRetard,
-                    'user_id' => $user->id ?? 0,
-                ];
-                
-                Log::info('📝 Données création QR:', $data);
-                
-                $record = Emargement::create($data);
-                
-                // Recharger et vérifier
-                $recordFresh = Emargement::find($record->id);
-                Log::info('✅ QR créé - Vérification BD:', [
-                    'id' => $recordFresh->id,
-                    'justificatif_arrive_bd' => $recordFresh->justificatif_arrive,
-                    'avec_justificatif_bd' => $recordFresh->avec_justificatif,
-                    'est_en_retard_bd' => $recordFresh->est_en_retard
+                    'avec_justificatif'   => true,
+                    'est_en_retard'       => $estEnRetard,
+                    'user_id'             => $user->id,
                 ]);
 
                 return response()->json([
-                    'code' => 200,
+                    'code'    => 200,
                     'message' => "Bienvenue {$user->prenom} 👋",
-                    'data' => $recordFresh,
-                    'avec_justificatif' => true,
-                    'justificatif_enregistre' => $justificatif,
-                    'debug' => [
-                        'justificatif_stocke' => $recordFresh->justificatif_arrive,
-                        'est_en_retard' => $estEnRetard
-                    ]
+                    'data'    => $record,
                 ]);
             }
 
-            // CAS 2: Arrivée SANS justificatif mais AVEC retard
+            // Retard sans justificatif
             if ($estEnRetard) {
                 return response()->json([
-                    'code' => 403,
-                    'message' => "Retard détecté. Veuillez fournir un justificatif.",
-                    'justification_required' => true
+                    'code'                   => 403,
+                    'message'                => "Retard détecté. Veuillez fournir un justificatif.",
+                    'justification_required' => true,
                 ]);
             }
 
-            // CAS 3: Arrivée SANS justificatif et SANS retard (arrivée normale)
+            // Arrivée normale
             $record = Emargement::create([
-                'matricule' => $user->matricule,
-                'nom' => $user->nom,
-                'prenom' => $user->prenom,
-                'date' => $dateToday,
-                'heure_arrive' => $now->format('H:i:s'),
+                'matricule'     => $user->matricule,
+                'nom'           => $user->nom,
+                'prenom'        => $user->prenom,
+                'date'          => $dateToday,
+                'heure_arrive'  => $now->format('H:i:s'),
                 'est_en_retard' => false,
-                'user_id' => $user->id ?? 0,
+                'user_id'       => $user->id,
             ]);
 
             return response()->json([
-                'code' => 200,
+                'code'    => 200,
                 'message' => "Bienvenue {$user->prenom} 👋",
-                'data' => $record
+                'data'    => $record,
             ]);
         }
 

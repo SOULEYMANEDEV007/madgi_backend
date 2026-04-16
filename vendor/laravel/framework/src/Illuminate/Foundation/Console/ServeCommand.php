@@ -325,8 +325,7 @@ class ServeCommand extends Command
 
         preg_match($regex, $line, $matches);
 
-        //return Carbon::createFromFormat('D M d H:i:s Y', $matches[1]);
-        return isset($matches[1]) ? Carbon::createFromFormat('D M d H:i:s Y', $matches[1]) : Carbon::now();
+        return Carbon::createFromFormat('D M d H:i:s Y', $matches[1]);
     }
 
     /**

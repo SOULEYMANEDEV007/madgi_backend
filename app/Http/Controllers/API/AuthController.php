@@ -24,7 +24,8 @@ class AuthController extends Controller
     public function connexion(Request $request)
     {
         Log::info($request->all());
-            // $datas=$request->request->all();
+             $datas=$request->request->all();
+             dd($datas); 
             $messages = [
                 'email.required' => 'Le mail ou mot de passe incorrecte',
                 'password.required' => 'Le mail ou mot de passe incorrecte',

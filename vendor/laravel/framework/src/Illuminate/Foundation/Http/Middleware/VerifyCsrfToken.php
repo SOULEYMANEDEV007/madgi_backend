@@ -203,7 +203,7 @@ class VerifyCsrfToken
     protected function newCookie($request, $config)
     {
         return new Cookie(
-            //'XSRF-TOKEN',
+            'XSRF-TOKEN',
             $request->session()->token(),
             $this->availableAt(60 * $config['lifetime']),
             $config['path'],
